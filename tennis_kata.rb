@@ -13,11 +13,19 @@ The scoring system is rather simple:
 require 'pry'
 
 class Tennis_game 
+  attr_accessor :player1
+  attr_accessor :player2 
 
-
+  def initialize player1, player2
+    @player1 = player1
+    @player2 = player2
+  end
 
 end
 
 class Player
-
+  def initialize
+    @points = 0
+  end
+  attr_accessor :points
 end

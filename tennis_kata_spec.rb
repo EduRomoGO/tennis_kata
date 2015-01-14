@@ -8,8 +8,8 @@ RSpec.describe "Tennis game" do
     player1 = Player.new
     player2 = Player.new
     game = Tennis_game.new player1, player2
-    expect(player1.points).to eq(0)
-    #expect(game.@player2.@points).to eq(0) 
+    expect(game.player1.points).to eq(0)
+    expect(game.player2.points).to eq(0) 
   end
 
 end
