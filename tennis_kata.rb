@@ -21,6 +21,10 @@ class Tennis_game
     @player2 = player2
   end
 
+  def score player
+    player.points = 15
+  end
+
 end
 
 class Player
