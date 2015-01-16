@@ -22,7 +22,11 @@ class Tennis_game
   end
 
   def score player
-    player.points = 15
+    if player.points == 0
+      player.points = 15
+    else
+      player.points = 30
+    end
   end
 
 end
