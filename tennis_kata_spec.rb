@@ -11,7 +11,13 @@ RSpec.describe "Tennis game" do
     expect(game.player2.points).to eq(0)
   end
 
-  it "scoreboard after player one wins a point, is 15 - 0" do
+  it "scoreboard, after player one wins a point, is 15 - 0" do
+    game.score player1
+    expect(game.player1.points).to eq(15)
+    expect(game.player2.points).to eq(0)
+  end
+
+  it "scoreboard, after player one wins two points, is 30 - 0" do
     game.score player1
     expect(game.player1.points).to eq(15)
     expect(game.player2.points).to eq(0)
