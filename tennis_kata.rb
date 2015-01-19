@@ -28,6 +28,8 @@ class Tennis_game
       player.points = 30
     elsif player.points == 30
       player.points = 40
+    elsif player.points == 40
+      player.points = 1
     end
   end
 
