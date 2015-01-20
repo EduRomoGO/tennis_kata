@@ -50,4 +50,25 @@ RSpec.describe "Tennis game" do
     expect(game.player2.points).to eq(0)
   end
 
+  it "needs a difference of two points to win the game" do
+    game.score player1
+    game.score player1
+    game.score player1
+    game.score player2
+    game.score player2
+    game.score player2
+    game.score player1
+    expect(scoreboard[0]).to eq('Advantage')
+    expect(scoreboard[1]).to eq('')
+    game.score player2
+    expect(scoreboard[0]).to eq('Deuce')
+    expect(scoreboard[1]).to eq('')
+    game.score player2
+    expect(scoreboard[0]).to eq('')
+    expect(scoreboard[1]).to eq('Advantage')
+    game.score player2
+    expect(scoreboard[0]).to eq('0')
+    expect(scoreboard[1]).to eq('1')
+  end
+
 end
