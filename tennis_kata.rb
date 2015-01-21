@@ -15,22 +15,93 @@ require 'pry'
 class Tennis_game 
   attr_accessor :player1
   attr_accessor :player2 
+  attr_accessor :scoreboard
 
   def initialize player1, player2
     @player1 = player1
     @player2 = player2
+    @scoreboard = []
   end
 
   def score player
-    if player.points == 0
-      player.points = 15
-    elsif player.points == 15
-      player.points = 30
-    elsif player.points == 30
-      player.points = 40
-    elsif player.points == 40
-      player.points = 1
+    player.points+=1
+    update_scoreboard
+  end
+
+  def update_scoreboard
+    case player1.points
+      when 0
+        @scoreboard[0] = 0
+      when 1
+        @scoreboard[0] = 15
+      when 2
+        @scoreboard[0] = 30
+      when 3
+        @scoreboard[0] = 40
+      else
+        @scoreboard[0] = '+40'
     end
+
+    case player2.points
+      when 0
+        @scoreboard[1] = 0
+      when 1
+        @scoreboard[1] = 15
+      when 2
+        @scoreboard[1] = 30
+      when 3
+        @scoreboard[1] = 40
+      else
+        @scoreboard[1] = '+40'
+    end
+
+
+    if @scoreboard[0] == '+40' and @scoreboard[1] == '+40'
+      if (player1.points - player2.points).abs >=2
+        if player1.points > player2.points
+          @scoreboard[0] = 'Winner'
+          @scoreboard[1] = 'Looser'
+        else
+          @scoreboard[0] = 'Looser'
+          @scoreboard[1] = 'Winner'
+        end
+      elsif (player1.points - player2.points).abs == 1
+        if player1.points > player2.points
+          @scoreboard[0] = 'Advantage'
+          @scoreboard[1] = ''
+        else
+          @scoreboard[0] = ''
+          @scoreboard[1] = 'Advantage'
+        end
+      else
+          @scoreboard[0] = 'Deuce'
+          @scoreboard[1] = ''
+      end
+    elsif @scoreboard[0] == '+40' or @scoreboard[1] == '+40'
+      if (player1.points - player2.points).abs >=2
+        if player1.points > player2.points
+          @scoreboard[0] = 'Winner'
+          @scoreboard[1] = 'Looser'
+        else
+          @scoreboard[0] = 'Looser'
+          @scoreboard[1] = 'Winner'
+        end
+      else
+        if player1.points > player2.points
+          @scoreboard[0] = 'Advantage'
+          @scoreboard[1] = ''
+        else
+          @scoreboard[0] = ''
+          @scoreboard[1] = 'Advantage'
+        end
+      end
+    elsif @scoreboard[0] == '+40' or @scoreboard[1] == '+40'
+      if @scoreboard[0] == 40 and @scoreboard[1] == 40
+          @scoreboard[0] = 'Deuce'
+          @scoreboard[1] = ''
+      end
+    end
+
   end
 
 end
@@ -38,6 +109,14 @@ end
 class Player
   def initialize
     @points = 0
+
+
+
+
+
+
+
+
   end
   attr_accessor :points
 end
