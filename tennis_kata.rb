@@ -81,30 +81,22 @@ class Tennis_game
   end
 
   def determine_if_points_are_over_or_under_40
-    case player1.points
-      when 0
-        @scoreboard[0] = 0
-      when 1
-        @scoreboard[0] = 15
-      when 2
-        @scoreboard[0] = 30
-      when 3
-        @scoreboard[0] = 40
-      else
-        @scoreboard[0] = '+40'
-    end
+    determine_player_score_in_scoreboard_if_under_or_equal_40_points player1
+    determine_player_score_in_scoreboard_if_under_or_equal_40_points player2
+  end
 
-    case player2.points
+  def determine_player_score_in_scoreboard_if_under_or_equal_40_points player
+    case player.points
       when 0
-        @scoreboard[1] = 0
+        @scoreboard[player.number-1] = 0
       when 1
-        @scoreboard[1] = 15
+        @scoreboard[player.number-1] = 15
       when 2
-        @scoreboard[1] = 30
+        @scoreboard[player.number-1] = 30
       when 3
-        @scoreboard[1] = 40
+        @scoreboard[player.number-1] = 40
       else
-        @scoreboard[1] = '+40'
+        @scoreboard[player.number-1] = '+40'
     end
   end
 
@@ -116,4 +108,5 @@ class Player
     @number = player_number
   end
   attr_accessor :points
+  attr_accessor :number
 end
