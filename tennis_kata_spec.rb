@@ -2,8 +2,8 @@ require './tennis_kata'
 
 RSpec.describe "Tennis game" do
 
-  let(:player1) { Player.new }
-  let(:player2) { Player.new }
+  let(:player1) { Player.new 1}
+  let(:player2) { Player.new 2}
   let(:game) { Tennis_game.new player1, player2 }
 
   it "starts with two players having 0 points each" do

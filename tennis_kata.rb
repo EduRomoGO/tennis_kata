@@ -111,16 +111,9 @@ class Tennis_game
 end
 
 class Player
-  def initialize
+  def initialize player_number
     @points = 0
-
-
-
-
-
-
-
-
+    @number = player_number
   end
   attr_accessor :points
 end
