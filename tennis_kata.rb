@@ -29,32 +29,8 @@ class Tennis_game
   end
 
   def update_scoreboard
-    case player1.points
-      when 0
-        @scoreboard[0] = 0
-      when 1
-        @scoreboard[0] = 15
-      when 2
-        @scoreboard[0] = 30
-      when 3
-        @scoreboard[0] = 40
-      else
-        @scoreboard[0] = '+40'
-    end
 
-    case player2.points
-      when 0
-        @scoreboard[1] = 0
-      when 1
-        @scoreboard[1] = 15
-      when 2
-        @scoreboard[1] = 30
-      when 3
-        @scoreboard[1] = 40
-      else
-        @scoreboard[1] = '+40'
-    end
-
+    determine_if_points_are_over_or_under_40
 
     if @scoreboard[0] == '+40' and @scoreboard[1] == '+40'
       if (player1.points - player2.points).abs >=2
@@ -102,6 +78,34 @@ class Tennis_game
       end
     end
 
+  end
+
+  def determine_if_points_are_over_or_under_40
+    case player1.points
+      when 0
+        @scoreboard[0] = 0
+      when 1
+        @scoreboard[0] = 15
+      when 2
+        @scoreboard[0] = 30
+      when 3
+        @scoreboard[0] = 40
+      else
+        @scoreboard[0] = '+40'
+    end
+
+    case player2.points
+      when 0
+        @scoreboard[1] = 0
+      when 1
+        @scoreboard[1] = 15
+      when 2
+        @scoreboard[1] = 30
+      when 3
+        @scoreboard[1] = 40
+      else
+        @scoreboard[1] = '+40'
+    end
   end
 
 end
