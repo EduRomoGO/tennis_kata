@@ -94,15 +94,15 @@ class Tennis_game
   def determine_player_score_in_scoreboard_if_under_or_equal_40_points player
     case player.points
       when 0
-        @scoreboard[player.number-1] = 0
+        @scoreboard[player.number] = 0
       when 1
-        @scoreboard[player.number-1] = 15
+        @scoreboard[player.number] = 15
       when 2
-        @scoreboard[player.number-1] = 30
+        @scoreboard[player.number] = 30
       when 3
-        @scoreboard[player.number-1] = 40
+        @scoreboard[player.number] = 40
       else
-        @scoreboard[player.number-1] = '+40'
+        @scoreboard[player.number] = '+40'
     end
   end
 
@@ -111,7 +111,7 @@ end
 class Player
   def initialize player_number
     @points = 0
-    @number = player_number
+    @number = player_number-1
   end
   attr_accessor :points
   attr_accessor :number
