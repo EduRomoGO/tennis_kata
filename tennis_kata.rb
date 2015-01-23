@@ -32,8 +32,14 @@ class Tennis_game
 
     determine_if_points_are_over_or_under_40
 
-    if @scoreboard[0] == '+40' and @scoreboard[1] == '+40'
-      if (player1.points - player2.points).abs >=2
+    scores_are_over_40_points = @scoreboard[0] == '+40' and @scoreboard[1] == '+40'
+    scores_are_equal_to_40_points = @scoreboard[0] == '+40' or @scoreboard[1] == '+40'
+    one_player_over_40_points_and_the_other_under = @scoreboard[0] == '+40' or @scoreboard[1] == '+40'
+
+    points_difference_between_players = (player1.points - player2.points).abs
+
+    if scores_are_over_40_points
+      if points_difference_between_players >=2
         if player1.points > player2.points
           @scoreboard[0] = 'Winner'
           @scoreboard[1] = 'Looser'
@@ -41,7 +47,7 @@ class Tennis_game
           @scoreboard[0] = 'Looser'
           @scoreboard[1] = 'Winner'
         end
-      elsif (player1.points - player2.points).abs == 1
+      elsif points_difference_between_players == 1
         if player1.points > player2.points
           @scoreboard[0] = 'Advantage'
           @scoreboard[1] = ''
@@ -53,8 +59,8 @@ class Tennis_game
           @scoreboard[0] = 'Deuce'
           @scoreboard[1] = ''
       end
-    elsif @scoreboard[0] == '+40' or @scoreboard[1] == '+40'
-      if (player1.points - player2.points).abs >=2
+    elsif scores_are_equal_to_40_points
+      if points_difference_between_players >=2
         if player1.points > player2.points
           @scoreboard[0] = 'Winner'
           @scoreboard[1] = 'Looser'
@@ -71,7 +77,7 @@ class Tennis_game
           @scoreboard[1] = 'Advantage'
         end
       end
-    elsif @scoreboard[0] == '+40' or @scoreboard[1] == '+40'
+    elsif one_player_over_40_points_and_the_other_under
       if @scoreboard[0] == 40 and @scoreboard[1] == 40
           @scoreboard[0] = 'Deuce'
           @scoreboard[1] = ''
