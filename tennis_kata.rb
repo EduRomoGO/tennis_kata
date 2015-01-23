@@ -40,13 +40,7 @@ class Tennis_game
 
     if scores_are_over_40_points
       if points_difference_between_players >=2
-        if player1.points > player2.points
-          @scoreboard[0] = 'Winner'
-          @scoreboard[1] = 'Looser'
-        else
-          @scoreboard[0] = 'Looser'
-          @scoreboard[1] = 'Winner'
-        end
+        determine_winner
       elsif points_difference_between_players == 1
         if player1.points > player2.points
           @scoreboard[0] = 'Advantage'
@@ -61,13 +55,7 @@ class Tennis_game
       end
     elsif scores_are_equal_to_40_points
       if points_difference_between_players >=2
-        if player1.points > player2.points
-          @scoreboard[0] = 'Winner'
-          @scoreboard[1] = 'Looser'
-        else
-          @scoreboard[0] = 'Looser'
-          @scoreboard[1] = 'Winner'
-        end
+        determine_winner
       else
         if player1.points > player2.points
           @scoreboard[0] = 'Advantage'
@@ -84,6 +72,16 @@ class Tennis_game
       end
     end
 
+  end
+
+  def determine_winner
+    if player1.points > player2.points
+      @scoreboard[0] = 'Winner'
+      @scoreboard[1] = 'Looser'
+    else
+      @scoreboard[0] = 'Looser'
+      @scoreboard[1] = 'Winner'
+    end 
   end
 
   def determine_if_points_are_over_or_under_40
