@@ -20,7 +20,7 @@ class Tennis_game
   def initialize player1, player2
     @player1 = player1
     @player2 = player2
-    @scoreboard = []
+    @scoreboard = [0,0]
   end
 
   def score player
@@ -32,9 +32,9 @@ class Tennis_game
 
     determine_if_points_are_over_or_under_40
 
-    scores_are_over_40_points = @scoreboard[0] == '+40' and @scoreboard[1] == '+40'
-    scores_are_equal_to_40_points = @scoreboard[0] == '+40' or @scoreboard[1] == '+40'
-    one_player_over_40_points_and_the_other_under = @scoreboard[0] == '+40' or @scoreboard[1] == '+40'
+    scores_are_over_40_points = (@scoreboard[0] == '+40' and @scoreboard[1] == '+40')
+    one_player_over_40_points_and_the_other_under = (@scoreboard[0] == '+40' or @scoreboard[1] == '+40')
+    scores_are_equal_to_40_points = (@scoreboard[0] == 40 and @scoreboard[1] == 40)
 
     points_difference_between_players = (player1.points - player2.points).abs
 
@@ -42,36 +42,24 @@ class Tennis_game
       if points_difference_between_players >=2
         determine_winner
       elsif points_difference_between_players == 1
-        if player1.points > player2.points
-          @scoreboard[0] = 'Advantage'
-          @scoreboard[1] = ''
-        else
-          @scoreboard[0] = ''
-          @scoreboard[1] = 'Advantage'
-        end
+        determine_the_player_with_advantage
       else
-          @scoreboard[0] = 'Deuce'
-          @scoreboard[1] = ''
+        update_scoreboard_with_deuce
       end
-    elsif scores_are_equal_to_40_points
+    elsif one_player_over_40_points_and_the_other_under
       if points_difference_between_players >=2
         determine_winner
       else
-        if player1.points > player2.points
-          @scoreboard[0] = 'Advantage'
-          @scoreboard[1] = ''
-        else
-          @scoreboard[0] = ''
-          @scoreboard[1] = 'Advantage'
-        end
+        determine_the_player_with_advantage
       end
-    elsif one_player_over_40_points_and_the_other_under
-      if @scoreboard[0] == 40 and @scoreboard[1] == 40
-          @scoreboard[0] = 'Deuce'
-          @scoreboard[1] = ''
-      end
+    elsif scores_are_equal_to_40_points
+      update_scoreboard_with_deuce
     end
+  end
 
+  def update_scoreboard_with_deuce
+    @scoreboard[0] = 'Deuce'
+    @scoreboard[1] = ''
   end
 
   def determine_winner
@@ -81,6 +69,16 @@ class Tennis_game
     else
       @scoreboard[0] = 'Looser'
       @scoreboard[1] = 'Winner'
+    end
+  end
+
+  def determine_the_player_with_advantage
+    if player1.points > player2.points
+      @scoreboard[0] = 'Advantage'
+      @scoreboard[1] = ''
+    else
+      @scoreboard[0] = ''
+      @scoreboard[1] = 'Advantage'
     end 
   end
 
