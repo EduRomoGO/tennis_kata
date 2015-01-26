@@ -38,24 +38,30 @@ class Tennis_game
 
     points_difference_between_players = (player1.points - player2.points).abs
 
-    if scores_are_over_40_points
-      if points_difference_between_players >=2
-        determine_winner
-      elsif points_difference_between_players == 1
-        determine_the_player_with_advantage
-      else
-        update_scoreboard_with_deuce
-      end
-    elsif one_player_over_40_points_and_the_other_under
-      if points_difference_between_players >=2
-        determine_winner
-      else
-        determine_the_player_with_advantage
-      end
-    elsif scores_are_equal_to_40_points
+    equal_scores = player1.points == player2.points
+    scores_over_30 = (player1.points > 3 and player2.points > 3)
+
+    if(equal_scores and scores_over_30)
       update_scoreboard_with_deuce
+    else
+      if scores_are_over_40_points
+        if points_difference_between_players >=2
+          determine_winner
+        elsif points_difference_between_players == 1
+          determine_the_player_with_advantage
+        end
+      elsif one_player_over_40_points_and_the_other_under
+        if points_difference_between_players >=2
+          determine_winner
+        else
+          determine_the_player_with_advantage
+        end
+      end
     end
+
+
   end
+
 
   def update_scoreboard_with_deuce
     @scoreboard[0] = 'Deuce'
