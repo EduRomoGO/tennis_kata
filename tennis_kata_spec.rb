@@ -1,4 +1,5 @@
-require './tennis_kata'
+require './game'
+require './player'
 
 RSpec.describe "Tennis game" do
 

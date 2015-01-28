@@ -11,6 +11,7 @@ The scoring system is rather simple:
 =end
 
 require 'pry'
+require './player'
 
 class Tennis_game 
   attr_accessor :player1
@@ -99,13 +100,4 @@ class Tennis_game
     end
   end
 
-end
-
-class Player
-  def initialize player_number
-    @points = 0
-    @number = player_number-1
-  end
-  attr_accessor :points
-  attr_accessor :number
 end
