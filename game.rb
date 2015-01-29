@@ -31,7 +31,8 @@ class Tennis_game
 
   def update_scoreboard
 
-    determine_if_points_are_over_or_under_40
+    determine_player_scores player1
+    determine_player_scores player2
 
     scores_are_over_40_points = (@scoreboard[0] == '+40' and @scoreboard[1] == '+40')
     one_player_over_40_points_and_the_other_under = (@scoreboard[0] == '+40' or @scoreboard[1] == '+40')
@@ -44,7 +45,7 @@ class Tennis_game
 
     if(equal_scores and scores_over_30)
       update_scoreboard_with_deuce
-    elsif scores_are_over_40_points or one_player_over_40_points_and_the_other_under
+    elsif players_scores_are_over_40_points? or one_player_over_40_points_and_the_other_under
       if points_difference_between_players >=2
         determine_winner
       else points_difference_between_players == 1
@@ -54,6 +55,24 @@ class Tennis_game
 
   end
 
+  def players_scores_are_over_40_points?
+    (@scoreboard[0] == '+40' and @scoreboard[1] == '+40')
+  end
+
+  def determine_player_scores player
+    case player.points
+      when 0
+        @scoreboard[player.number] = 0
+      when 1
+        @scoreboard[player.number] = 15
+      when 2
+        @scoreboard[player.number] = 30
+      when 3
+        @scoreboard[player.number] = 40
+      else
+        @scoreboard[player.number] = '+40'
+    end
+  end
 
   def update_scoreboard_with_deuce
     @scoreboard[0] = 'Deuce'
@@ -80,24 +99,5 @@ class Tennis_game
     end 
   end
 
-  def determine_if_points_are_over_or_under_40
-    determine_player_score_in_scoreboard_if_under_or_equal_40_points player1
-    determine_player_score_in_scoreboard_if_under_or_equal_40_points player2
-  end
-
-  def determine_player_score_in_scoreboard_if_under_or_equal_40_points player
-    case player.points
-      when 0
-        @scoreboard[player.number] = 0
-      when 1
-        @scoreboard[player.number] = 15
-      when 2
-        @scoreboard[player.number] = 30
-      when 3
-        @scoreboard[player.number] = 40
-      else
-        @scoreboard[player.number] = '+40'
-    end
-  end
 
 end
