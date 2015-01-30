@@ -24,6 +24,10 @@ class Tennis_game
     @scoreboard = [0,0]
   end
 
+  def show_scoreboard
+    scoreboard
+  end
+
   def score player
     player.points+=1
     update_scoreboard
@@ -34,8 +38,6 @@ class Tennis_game
     determine_player_scores player1
     determine_player_scores player2
 
-    scores_are_over_40_points = (@scoreboard[0] == '+40' and @scoreboard[1] == '+40')
-    one_player_over_40_points_and_the_other_under = (@scoreboard[0] == '+40' or @scoreboard[1] == '+40')
     scores_are_equal_to_40_points = (@scoreboard[0] == 40 and @scoreboard[1] == 40)
 
     points_difference_between_players = (player1.points - player2.points).abs
@@ -45,7 +47,7 @@ class Tennis_game
 
     if(equal_scores and scores_over_30)
       update_scoreboard_with_deuce
-    elsif players_scores_are_over_40_points? or one_player_over_40_points_and_the_other_under
+    elsif at_least_one_player_over_40_points?
       if points_difference_between_players >=2
         determine_winner
       else points_difference_between_players == 1
@@ -55,8 +57,16 @@ class Tennis_game
 
   end
 
-  def players_scores_are_over_40_points?
-    (@scoreboard[0] == '+40' and @scoreboard[1] == '+40')
+  def players_scores_are_over_40_points
+    @scoreboard[0] == '+40' and @scoreboard[1] == '+40'
+  end
+
+  def one_player_over_40_points_and_the_other_under
+    @scoreboard[0] == '+40' or @scoreboard[1] == '+40'
+  end
+
+  def at_least_one_player_over_40_points?
+    players_scores_are_over_40_points or one_player_over_40_points_and_the_other_under
   end
 
   def determine_player_scores player

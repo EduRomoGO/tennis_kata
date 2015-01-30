@@ -14,23 +14,20 @@ RSpec.describe "Tennis game" do
 
   it "scoreboard, after player one wins a point, is 15 - 0" do
     game.score player1
-    expect(game.scoreboard[0]).to eq(15)
-    expect(game.scoreboard[1]).to eq(0)
+    expect(game.show_scoreboard).to eq([15,0])
   end
 
   it "scoreboard, after player one wins two points, is 30 - 0" do
     game.score player1
     game.score player1   
-    expect(game.scoreboard[0]).to eq(30)
-    expect(game.scoreboard[1]).to eq(0)
+    expect(game.show_scoreboard).to eq([30,0])
   end
 
   it "scoreboard, after player one wins three points, is 40 - 0" do
     game.score player1
     game.score player1
     game.score player1
-    expect(game.scoreboard[0]).to eq(40)
-    expect(game.scoreboard[1]).to eq(0)
+    expect(game.show_scoreboard).to eq([40,0])
   end
 
   it "scoreboard, after player1 wins three points, and player2 wins one point is 40 - 15" do
@@ -38,8 +35,7 @@ RSpec.describe "Tennis game" do
     game.score player1
     game.score player1
     game.score player2
-    expect(game.scoreboard[0]).to eq(40)
-    expect(game.scoreboard[1]).to eq(15)
+    expect(game.show_scoreboard).to eq([40,15])
   end
 
   it "scoreboard, after player1 wins four points and player2 none is 1 game win for player 1" do
@@ -47,8 +43,7 @@ RSpec.describe "Tennis game" do
     game.score player1
     game.score player1
     game.score player1
-    expect(game.scoreboard[0]).to eq('Winner')
-    expect(game.scoreboard[1]).to eq('Looser')
+    expect(game.show_scoreboard).to eq(['Winner','Looser'])
   end
 
   it "needs a difference of two points to win the game" do
@@ -59,17 +54,13 @@ RSpec.describe "Tennis game" do
     game.score player2
     game.score player2
     game.score player1
-    expect(game.scoreboard[0]).to eq('Advantage')
-    expect(game.scoreboard[1]).to eq('')
+    expect(game.show_scoreboard).to eq(['Advantage',''])
     game.score player2
-    expect(game.scoreboard[0]).to eq('Deuce')
-    expect(game.scoreboard[1]).to eq('')
+    expect(game.show_scoreboard).to eq(['Deuce',''])
     game.score player2
-    expect(game.scoreboard[0]).to eq('')
-    expect(game.scoreboard[1]).to eq('Advantage')
+    expect(game.show_scoreboard).to eq(['','Advantage'])
     game.score player2
-    expect(game.scoreboard[0]).to eq('Looser')
-    expect(game.scoreboard[1]).to eq('Winner')
+    expect(game.show_scoreboard).to eq(['Looser','Winner'])
   end
 
 end
