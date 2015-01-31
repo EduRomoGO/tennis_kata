@@ -45,6 +45,12 @@ class Tennis_game
     equal_scores = player1.points == player2.points
     scores_over_30 = (player1.points > 3 and player2.points > 3)
 
+    determine_scoreboard_if_deuce_winner_or_advantage equal_scores, scores_over_30, points_difference_between_players
+
+  end
+
+
+  def determine_scoreboard_if_deuce_winner_or_advantage equal_scores, scores_over_30, points_difference_between_players
     if(equal_scores and scores_over_30)
       update_scoreboard_with_deuce
     elsif at_least_one_player_over_40_points?
@@ -54,7 +60,6 @@ class Tennis_game
         determine_the_player_with_advantage
       end
     end
-
   end
 
   def players_scores_are_over_40_points

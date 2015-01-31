@@ -8,8 +8,7 @@ RSpec.describe "Tennis game" do
   let(:game) { Tennis_game.new player1, player2 }
 
   it "starts with two players having 0 points each" do
-    expect(game.player1.points).to eq(0)
-    expect(game.player2.points).to eq(0)
+    expect(game.show_scoreboard).to eq([0,0])
   end
 
   it "scoreboard, after player one wins a point, is 15 - 0" do
