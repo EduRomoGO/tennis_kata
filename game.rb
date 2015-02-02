@@ -42,34 +42,7 @@ class Tennis_game
     determine_player_scores player1
     determine_player_scores player2
     points_difference_between_players = (player1.points - player2.points).abs
-    determine_scoreboard_if_deuce_winner_or_advantage points_difference_between_players
-  end
-
-  
-  def are_scores_equal_and_over_30_points?
-    equal_scores = player1.points == player2.points
-    scores_over_30 = (player1.points > 3 and player2.points > 3)
-    equal_scores and scores_over_30
-  end
-
-
-  def determine_scoreboard_if_deuce_winner_or_advantage points_difference_between_players
-    if are_scores_equal_and_over_30_points?
-      update_scoreboard_with_deuce
-    elsif at_least_one_player_over_40_points?
-      if points_difference_between_players >=2
-        determine_winner
-      else points_difference_between_players == 1
-        determine_the_player_with_advantage
-      end
-    end
-  end
-
-
-  def at_least_one_player_over_40_points?
-    one_player_over_40_points_and_the_other_under = @scoreboard[0] == '+40' or @scoreboard[1] == '+40'
-    players_scores_are_over_40_points = @scoreboard[0] == '+40' and @scoreboard[1] == '+40'
-    players_scores_are_over_40_points or one_player_over_40_points_and_the_other_under
+    update_scoreboard_if_deuce_winner_or_advantage points_difference_between_players
   end
 
   
@@ -86,6 +59,33 @@ class Tennis_game
       else
         @scoreboard[player.number] = '+40'
     end
+  end
+
+
+  def update_scoreboard_if_deuce_winner_or_advantage points_difference_between_players
+    if are_scores_equal_and_over_30_points?
+      update_scoreboard_with_deuce
+    elsif at_least_one_player_over_40_points?
+      if points_difference_between_players >=2
+        determine_winner
+      else points_difference_between_players == 1
+        determine_the_player_with_advantage
+      end
+    end
+  end
+
+  
+  def are_scores_equal_and_over_30_points?
+    equal_scores = player1.points == player2.points
+    scores_over_30 = (player1.points > 3 and player2.points > 3)
+    equal_scores and scores_over_30
+  end
+
+
+  def at_least_one_player_over_40_points?
+    one_player_over_40_point = @scoreboard[0] == '+40' or @scoreboard[1] == '+40'
+    both_players_over_40_points = @scoreboard[0] == '+40' and @scoreboard[1] == '+40'
+    both_players_over_40_points or one_player_over_40_point
   end
 
   
