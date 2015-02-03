@@ -12,8 +12,12 @@ The scoring system is rather simple:
 
 require 'pry'
 require './player'
+require 'logger'
+
 
 class Tennis_game 
+
+  $LOG = Logger.new('kata_tennis.log', 'monthly') 
 
   attr_accessor :player1
   attr_accessor :player2 
@@ -34,17 +38,22 @@ class Tennis_game
   
   def score player
     player.points+=1
-    update_scoreboard
+    calculate_scoreboard_scores
   end
 
   
-  def update_scoreboard
+  def calculate_scoreboard_scores
     determine_player_scores player1
     determine_player_scores player2
     points_difference_between_players = (player1.points - player2.points).abs
-    update_scoreboard_if_deuce_winner_or_advantage points_difference_between_players
+    if deuce_winner_or_advantage?
+      update_scoreboard points_difference_between_players
+    end
   end
 
+  def deuce_winner_or_advantage?
+    are_scores_equal_and_over_30_points? or at_least_one_player_over_40_points?
+  end
   
   def determine_player_scores player
     case player.points
@@ -62,7 +71,8 @@ class Tennis_game
   end
 
 
-  def update_scoreboard_if_deuce_winner_or_advantage points_difference_between_players
+  def update_scoreboard points_difference_between_players
+    $LOG.debug("Enter update_scoreboard_if_deuce_winner_or_advantage")  
     if are_scores_equal_and_over_30_points?
       update_scoreboard_with_deuce
     elsif at_least_one_player_over_40_points?
