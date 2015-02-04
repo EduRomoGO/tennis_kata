@@ -13,6 +13,7 @@ The scoring system is rather simple:
 require 'pry'
 require './player'
 require 'logger'
+require './scoreboard_updater'
 
 
 class Tennis_game 
@@ -43,30 +44,33 @@ class Tennis_game
 
   
   def calculate_scoreboard_scores
-    determine_player_scores player1
-    determine_player_scores player2
-    points_difference_between_players = (player1.points - player2.points).abs
-    if deuce_winner_or_advantage?
+    determine_player_scores [player1, player2]
+    if scoreboard_has_to_show_deuce_winner_or_advantage?
+      points_difference_between_players = (player1.points - player2.points).abs
       update_scoreboard points_difference_between_players
     end
   end
 
-  def deuce_winner_or_advantage?
+
+  def scoreboard_has_to_show_deuce_winner_or_advantage?
     are_scores_equal_and_over_30_points? or at_least_one_player_over_40_points?
   end
+
   
-  def determine_player_scores player
-    case player.points
-      when 0
-        @scoreboard[player.number] = 0
-      when 1
-        @scoreboard[player.number] = 15
-      when 2
-        @scoreboard[player.number] = 30
-      when 3
-        @scoreboard[player.number] = 40
-      else
-        @scoreboard[player.number] = '+40'
+  def determine_player_scores players
+    players.each do |player| 
+      case player.points
+        when 0
+          @scoreboard[player.number] = 0
+        when 1
+          @scoreboard[player.number] = 15
+        when 2
+          @scoreboard[player.number] = 30
+        when 3
+          @scoreboard[player.number] = 40
+        else
+          @scoreboard[player.number] = '+40'
+      end
     end
   end
 
@@ -74,12 +78,12 @@ class Tennis_game
   def update_scoreboard points_difference_between_players
     $LOG.debug("Enter update_scoreboard_if_deuce_winner_or_advantage")  
     if are_scores_equal_and_over_30_points?
-      update_scoreboard_with_deuce
+      Scoreboard_updater.new.update_scoreboard_with_deuce @scoreboard
     elsif at_least_one_player_over_40_points?
       if points_difference_between_players >=2
-        determine_winner
+        Scoreboard_updater.new.determine_winner @scoreboard, player1, player2
       else points_difference_between_players == 1
-        determine_the_player_with_advantage
+        Scoreboard_updater.new.determine_the_player_with_advantage @scoreboard, player1, player2
       end
     end
   end
@@ -99,32 +103,7 @@ class Tennis_game
   end
 
   
-  def update_scoreboard_with_deuce
-    @scoreboard[0] = 'Deuce'
-    @scoreboard[1] = ''
-  end
 
-  
-  def determine_winner
-    if player1.points > player2.points
-      @scoreboard[0] = 'Winner'
-      @scoreboard[1] = 'Looser'
-    else
-      @scoreboard[0] = 'Looser'
-      @scoreboard[1] = 'Winner'
-    end
-  end
-
-  
-  def determine_the_player_with_advantage
-    if player1.points > player2.points
-      @scoreboard[0] = 'Advantage'
-      @scoreboard[1] = ''
-    else
-      @scoreboard[0] = ''
-      @scoreboard[1] = 'Advantage'
-    end 
-  end
 
 
 end
